@@ -1657,3 +1657,6 @@ textarea{resize:vertical;}
 
 /* ===== Đã gỡ phần Sản phẩm ===== */
 #nav_product, #nav_stock, .fmgr-tab[data-src="product"] { display:none !important; }
+
+/* ===== Đã gỡ phần đọc tài liệu online (tách trang) ===== */
+#docTabs, #docPagesTabBox, button[onclick*="openDocPagesFor"] { display:none !important; }

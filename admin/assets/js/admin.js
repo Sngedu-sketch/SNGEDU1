@@ -136,7 +136,7 @@ function revealLoginScreen(msg){
 // ===== TÀI KHOẢN ADMIN DUY NHẤT =====
 // Chỉ đúng 1 tài khoản này đăng nhập được trang admin.
 const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = 'adminsngedu23/9/2026';
+const ADMIN_PASSWORD = 'adminsngedu28/9/2026';
 // Để LƯU được dữ liệu lên Supabase (RLS), trang tự đăng nhập ngầm vào 1 tài khoản Supabase
 // có profiles.role = 'admin' với email dưới đây + cùng mật khẩu ở trên (xem README-BAN-MO.md).
 const ADMIN_SUPABASE_EMAIL = 'admin@sngedu.vn';
@@ -148,7 +148,8 @@ async function doLogin(){
     const msgEl = document.getElementById('loginMsg');
     msgEl.innerText = '';
     if (!username || !password){ msgEl.innerText = 'Nhập đủ tài khoản và mật khẩu.'; return; }
-    if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD){
+    const uname = username.toLowerCase();
+    if ((uname !== ADMIN_USERNAME && uname !== ADMIN_SUPABASE_EMAIL) || password !== ADMIN_PASSWORD){
         msgEl.innerText = 'Sai tài khoản hoặc mật khẩu.';
         return;
     }

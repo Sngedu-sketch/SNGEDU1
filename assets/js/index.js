@@ -988,8 +988,8 @@ const toast = document.getElementById('toast');
         // việc tải xuống thật sự (kiểm tra giới hạn lượt/ngày) diễn ra trên trang đó.
         if (!isPaid){
             const idAttr = escapeHtmlHome(String(item.id || ''));
-            const readOnlineFree = item.preview_mode === 'pages' && item.pages_ready;
-            const disabled = !item.link && !readOnlineFree;
+            const readOnlineFree = false;
+            const disabled = !item.link;
             return `
                 <a class="doc-card is-free${disabled ? ' is-disabled' : ''}" data-cat="free" href="${disabled ? '#' : `chi-tiet.html?type=doc&id=${idAttr}`}" ${disabled ? 'onclick="return false;"' : ''}>
                     <div class="${topClass}">
@@ -1014,7 +1014,7 @@ const toast = document.getElementById('toast');
         // Nếu người xem hiện tại ĐÃ có Pro rồi thì không được hiện "Nâng cấp/cần Pro" nữa —
         // phải cho họ 1 nút "Xem/Đọc online" đi thẳng vào nội dung.
         if (item.access === 'pro'){
-            const readOnline = item.preview_mode === 'pages' && item.pages_ready;
+            const readOnline = false;
             let ctaIcon, ctaText;
             if (isPro){
                 ctaIcon = readOnline ? 'fa-book-open' : (item.link ? 'fa-download' : 'fa-crown');

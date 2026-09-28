@@ -693,18 +693,6 @@ async function loadDocItem(){
                    </button>`;
     }
 
-    // Tài liệu đã bật "xem trước theo trang" -> ghi đè hẳn CTA cũ (không còn mua lẻ,
-    // chỉ Pro mới mở khoá xem hết trang, xem qua doc-preview-viewer.html)
-    if (item.preview_mode === 'pages' && item.pages_ready){
-        const label = 'Đọc tài liệu';
-        ctaHtml = `<a class="pd-cta" href="doc-preview-viewer.html?id=${encodeURIComponent(String(ITEM_ID))}">
-                        <i class="fa-solid fa-eye"></i> ${label}
-                   </a>`;
-        if ((isVip || !isPaid) && item.link){
-            ctaHtml += `<a class="pd-cta outline" href="${escapeHtml(item.link)}" target="_blank" rel="noopener"><i class="fa-solid fa-download"></i> Tải file gốc</a>`;
-        }
-    }
-
     // Link "Báo lỗi tài liệu" -> form góp ý đã điền sẵn tên tài liệu
     {
         const rp = new URLSearchParams({
@@ -733,7 +721,7 @@ async function loadDocItem(){
         mediaHtml, title: item.title, priceHtml, ctaHtml, desc: item.desc, specs
     });
 
-    if (isPaid && !isVip && !owned && !(item.preview_mode === 'pages' && item.pages_ready)){
+    if (isPaid && !isVip && !owned && true){
         const btn = document.getElementById('pdBuyBtn');
         if (!paymentSettings.sepay_enabled){
             btn.disabled = true;
