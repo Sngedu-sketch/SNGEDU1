@@ -117,8 +117,8 @@ const toast = document.getElementById('toast');
     bindLockedCards();
 
     // ---------------- ĐỒNG BỘ MÔN HỌC VỚI SUPABASE ----------------
-    const SUPABASE_URL = 'https://jdqqvvrqfjbptzdvycai.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_GhJtZpaPII3EzcQnw1pprg_p73Kn8Rx';
+    const SUPABASE_URL = 'https://soigvohtychqxckpnbat.supabase.co';
+    const SUPABASE_ANON_KEY = 'DAN_PUBLISHABLE_KEY_DAY_DU_VAO_DAY';
     const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // ---------------- ĐĂNG NHẬP / ĐĂNG KÝ — chỉ chặn khi bấm vào Trắc nghiệm, Tài liệu, Công cụ, Sản phẩm ----------------
@@ -1860,7 +1860,14 @@ const toast = document.getElementById('toast');
         if (!overlay) return;
         try{
             const { data, error } = await sb.from('site_settings').select('payload, updated_at').eq('key', 'announcement_popup').single();
-            const payload = (!error && data && data.payload) ? data.payload : null;
+            let payload = (!error && data && data.payload) ? data.payload : null;
+            // Chưa cấu hình trong admin -> dùng thông báo mặc định (admin sửa ở Admin > Cài đặt > Thông báo nổi sẽ ghi đè)
+            if (!payload) payload = {
+                enabled: true,
+                title: 'Thông báo đóng cửa SNG EDU',
+                message: 'SNG EDU sẽ chính thức đóng web vào ngày ... (điền ngày).\n\nĐến hết tháng 1, toàn bộ tính năng (làm trắc nghiệm, đọc và tải tài liệu) đều MIỄN PHÍ, không cần đăng nhập, không giới hạn lượt.\n\nCảm ơn bạn đã đồng hành cùng SNG EDU!',
+                hide_hours: 2
+            };
 
             if (!payload || !payload.enabled || !(payload.message || '').trim()){ overlay.classList.add('hidden'); return; }
 
@@ -2574,7 +2581,7 @@ const toast = document.getElementById('toast');
     }
 
     function renderSideNav(tabsConfig){
-        let visible = tabsConfig.filter(t => t.visible);
+        let visible = tabsConfig.filter(t => t.visible && !['product','account','history'].includes(t.key)); // bản mở: bỏ Sản phẩm / Tài khoản(Pro) / Lịch sử
         if (!visible.length) visible = [Object.assign({ visible:true }, NAV_TABS_DEFAULT[0])]; // an toàn: không để menu trống hoàn toàn
         const nav = document.getElementById('sideNav');
         const linksHtml = visible.map((t,i) => `<a class="side-link${i===0 ? ' active' : ''}" href="#" data-tab="${t.key}" title="${escapeHtmlHome(t.label)}"><i class="${t.icon}"></i><span class="lbl">${escapeHtmlHome(t.label)}</span></a>`).join('');
@@ -2608,7 +2615,7 @@ const toast = document.getElementById('toast');
 
     async function renderQuickGrid(){
         const grid = document.getElementById('quickGrid');
-        const { data: links, error } = await sb.from('quick_links').select('*').order('order_no', { ascending: true, nullsFirst: false }).order('id');
+        let { data: links, error } = await sb.from('quick_links').select('*').order('order_no', { ascending: true, nullsFirst: false }).order('id');
 
         if (error){
             grid.innerHTML = `<div class="empty-state small"><div class="empty-title">Không tải được Truy cập nhanh</div><div class="empty-sub">${escapeHtmlHome(error.message)}</div></div>`;
@@ -2619,6 +2626,7 @@ const toast = document.getElementById('toast');
             return;
         }
 
+        links = links.filter(q => !['product','account','history'].includes(q.link));
         grid.innerHTML = links.map(quickTileHtml).join('');
         // Số thẻ <=4 -> chia đều lấp đầy 1 hàng (khớp đúng số lượng); từ 5 thẻ trở lên -> dùng lưới 5 cột mặc định,
         // dư ra tự xuống hàng tiếp theo. Xem CSS ".quick-grid[data-count]" ở @media (min-width:1021px).
@@ -2835,7 +2843,7 @@ const toast = document.getElementById('toast');
         const hashTab = location.hash.replace('#', '');
         const visibleKeys = visibleTabs.map(t => t.key);
         const defaultTab = visibleKeys.includes('home') ? 'home' : (visibleKeys[0] || 'home');
-        const startTab = (panels[hashTab] && visibleKeys.includes(hashTab)) ? hashTab : defaultTab;
+        const startTab = (hashTab !== 'product' && panels[hashTab] && visibleKeys.includes(hashTab)) ? hashTab : defaultTab;
 
         if (GATED_TABS.includes(startTab) && !currentSession){
             location.href = loginUrl(startTab);

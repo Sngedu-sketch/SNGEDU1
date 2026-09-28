@@ -1455,3 +1455,12 @@ html[data-theme="dark"] .promo-pill-timer{ color:#ffbd4a; }
     body[data-show-illustration="0"] .hero-card.has-photo{ padding:28px 22px; }
     body[data-show-illustration="0"] .hero-card.has-photo .hero-text{ padding:0; margin-top:0; }
 }
+
+/* ===== Đã gỡ phần Sản phẩm ===== */
+.side-link[data-tab="product"], #panel-product, #featuredProductSection,
+.hist-filter-chip[data-histtype="product"], .prod-detail-overlay { display:none !important; }
+
+/* ===== Bản mở: ẩn Pro / Tài khoản / quà tặng / avatar / thông báo ===== */
+#sideProBtn, #sideEarnProBtn, .side-user, .avatar-btn, #notifyBell, .promo-banner,
+.side-link[data-tab="account"], .side-link[data-tab="history"], .pill { display:none !important; }
+.side-foot{ min-height:8px; }

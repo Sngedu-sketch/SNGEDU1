@@ -1,5 +1,5 @@
-const SUPABASE_URL = 'https://jdqqvvrqfjbptzdvycai.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_GhJtZpaPII3EzcQnw1pprg_p73Kn8Rx';
+const SUPABASE_URL = 'https://soigvohtychqxckpnbat.supabase.co';
+const SUPABASE_ANON_KEY = 'DAN_PUBLISHABLE_KEY_DAY_DU_VAO_DAY';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let subjects = [];

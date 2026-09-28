@@ -12,8 +12,8 @@
 // để không phụ thuộc thứ tự load script và không chặn/làm chậm trang.
 // ============================================================
 (function () {
-    var SUPABASE_URL = 'https://jdqqvvrqfjbptzdvycai.supabase.co';
-    var SUPABASE_ANON_KEY = 'sb_publishable_GhJtZpaPII3EzcQnw1pprg_p73Kn8Rx';
+    var SUPABASE_URL = 'https://soigvohtychqxckpnbat.supabase.co';
+    var SUPABASE_ANON_KEY = 'DAN_PUBLISHABLE_KEY_DAY_DU_VAO_DAY';
     var STORAGE_KEY = 'sng_ctv_ref';
     var TTL_DAYS = 30; // thời gian "nhớ" người giới thiệu kể từ lần click gần nhất
 

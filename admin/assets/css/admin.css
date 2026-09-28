@@ -1654,3 +1654,6 @@ textarea{resize:vertical;}
     .acct-form-actions{flex-direction:column;}
     .subj-mgr-col-head{gap:6px;}
 }
+
+/* ===== Đã gỡ phần Sản phẩm ===== */
+#nav_product, #nav_stock, .fmgr-tab[data-src="product"] { display:none !important; }
